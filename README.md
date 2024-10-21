@@ -1,3 +1,5 @@
+![Screenshot 2024-10-21 150841](https://github.com/user-attachments/assets/6cf3ae6c-7141-414e-b7cd-3435281d3105)
+![Screenshot 2024-10-21 131808](https://github.com/user-attachments/assets/4052f98b-dbff-4454-b4c2-6c5289de5c7c)
 Cryptocurrency Market Data App
 
 This project is a real-time cryptocurrency market data visualization application that connects to the Binance WebSocket API to display live candlestick data for selected cryptocurrency pairs. The app allows users to toggle between different cryptocurrencies (ETH/USDT, BNB/USDT, DOT/USDT) and time intervals (1 minute, 3 minutes, 5 minutes). The data is visualized using Chart.js as a line chart, showing the price changes over time.
