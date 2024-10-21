@@ -1,0 +1,65 @@
+import React, { useState, useEffect } from 'react';
+import { Line } from 'react-chartjs-2';
+
+function App() {
+    const [symbol, setSymbol] = useState('ethusdt');
+    const [interval, setInterval] = useState('1m');
+    const [chartData, setChartData] = useState([]);  // Data for Chart.js
+
+    useEffect(() => {
+        const ws = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol}@kline_${interval}`);
+        
+        ws.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            const candlestick = message.k;
+            setChartData(prev => [...prev, candlestick]);  
+        };
+
+        return () => ws.close();
+    }, [symbol, interval]);
+
+    
+    const data = {
+        labels: chartData.map(c => new Date(c.t)),  
+        datasets: [{
+            label: 'Close Price',
+            data: chartData.map(c => c.c),  
+            borderColor: 'rgba(75, 192, 192, 1)',
+            fill: false,
+        }],
+    };
+
+    return (
+        <div className="app-container">
+            {/* Header */}
+            <div className="header">
+                <h1 className="title">Cryptocurrency Market Data</h1>
+                <div className="dropdown-container">
+                    <select className="select-box" onChange={(e) => setSymbol(e.target.value)}>
+                        <option value="ethusdt">ETH/USDT</option>
+                        <option value="bnbusdt">BNB/USDT</option>
+                        <option value="dotusdt">DOT/USDT</option>
+                    </select>
+
+                    <select className="select-box" onChange={(e) => setInterval(e.target.value)}>
+                        <option value="1m">1 Minute</option>
+                        <option value="3m">3 Minutes</option>
+                        <option value="5m">5 Minutes</option>
+                    </select>
+                </div>
+            </div>
+
+            {/* Chart Section */}
+            <div className="chart-container">
+                <Line data={data} />
+            </div>
+
+            {/* Footer */}
+            <div className="footer">
+                <p>Data provided by Binance WebSocket API</p>
+            </div>
+        </div>
+    );
+}
+
+export default App;

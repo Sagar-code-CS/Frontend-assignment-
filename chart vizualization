@@ -1,0 +1,13 @@
+import { Line } from 'react-chartjs-2';
+
+const chartData = {
+    labels: ['Timestamp1', 'Timestamp2'],
+    datasets: [{
+        label: 'Price',
+        data: [500, 600],
+        borderColor: 'rgba(75,192,192,1)',
+        fill: false
+    }]
+};
+
+return <Line data={chartData} />;

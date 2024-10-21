@@ -1,0 +1,9 @@
+const symbol = 'ethusdt';
+const interval = '1m';
+const ws = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol}@kline_${interval}`);
+
+ws.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    console.log('Market data:', data);
+};
+

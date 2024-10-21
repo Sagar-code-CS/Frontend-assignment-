@@ -1,0 +1,14 @@
+useEffect(() => {
+    ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const newCandlestick = data.k;
+        setChartData(prevData => {
+           
+            return [...prevData, newCandlestick];
+        });
+    };
+
+    return () => {
+        ws.close();
+    };
+}, [ws]);

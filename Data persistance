@@ -1,0 +1,10 @@
+useEffect(() => {
+    
+    localStorage.setItem(selectedCoin, JSON.stringify(chartData));
+
+    
+    const savedData = localStorage.getItem(selectedCoin);
+    if (savedData) {
+        setChartData(JSON.parse(savedData));
+    }
+}, [selectedCoin]);
